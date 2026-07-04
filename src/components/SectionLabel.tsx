@@ -5,15 +5,15 @@ interface Props {
   className?: string;
 }
 
+/** Small caps sans label above each narrative section, as in the reference. */
 export default function SectionLabel({ children, className }: Props) {
   return (
     <p
       className={cn(
-        "font-mono text-xs uppercase tracking-[0.25em] text-accent mb-6 flex items-center gap-3",
+        "mb-10 font-sans text-sm font-semibold uppercase tracking-[0.08em] text-label",
         className
       )}
     >
-      <span className="inline-block h-px w-8 bg-accent" aria-hidden />
       {children}
     </p>
   );

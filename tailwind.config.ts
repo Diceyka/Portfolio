@@ -5,19 +5,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        "muted-foreground": "hsl(var(--muted-foreground))",
-        accent: "hsl(var(--accent))",
-        "accent-foreground": "hsl(var(--accent-foreground))",
+        page: "hsl(var(--page))",
         card: "hsl(var(--card))",
-        border: "hsl(var(--border))",
+        "card-media": "hsl(var(--card-media))",
         ink: "hsl(var(--ink))",
+        body: "hsl(var(--body))",
+        label: "hsl(var(--label))",
+        muted: "hsl(var(--muted))",
+        border: "hsl(var(--border))",
+        "nav-active": "hsl(var(--nav-active))",
       },
       fontFamily: {
-        display: ["Prata", "serif"],
-        sans: ["Manrope", "sans-serif"],
-        mono: ["'JetBrains Mono'", "monospace"],
+        display: ["'Averia Serif Libre'", "Vollkorn", "serif"],
+        sans: ["'Inclusive Sans'", "'Golos Text'", "sans-serif"],
+      },
+      maxWidth: {
+        page: "1160px",
+        content: "880px",
       },
       keyframes: {
         "fade-up": {
@@ -30,8 +34,8 @@ export default {
         },
       },
       animation: {
-        "fade-up": "fade-up 0.7s ease-out both",
-        "fade-in": "fade-in 0.9s ease-out both",
+        "fade-up": "fade-up 0.9s ease-out both",
+        "fade-in": "fade-in 1.2s ease-out both",
       },
     },
   },

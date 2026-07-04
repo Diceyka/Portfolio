@@ -1,36 +1,33 @@
 import type { Content } from "../lib/content";
 import ImagePlaceholder from "./ImagePlaceholder";
 
+/** Full-viewport dark green grainy hero with centered italic serif headline. */
 export default function Hero({ t }: { t: Content }) {
   return (
-    <section id="top" className="mx-auto max-w-6xl px-5 pt-32 sm:px-8 sm:pt-40">
-      <div className="flex flex-wrap gap-2 animate-fade-up">
-        {t.hero.tags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full border border-border px-3 py-1.5 font-mono text-xs text-muted-foreground"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
+    <section id="top" className="hero-bg text-white">
+      <div className="relative z-10 mx-auto flex min-h-[92vh] max-w-page flex-col items-center justify-center px-5 pt-28 sm:px-8">
+        <h1
+          className="max-w-4xl text-center font-display font-light italic leading-[1.15] animate-fade-up"
+          style={{ fontSize: "clamp(2rem, 4.6vw, 3.4rem)" }}
+        >
+          {t.hero.title}
+        </h1>
 
-      <h1
-        className="mt-10 max-w-4xl font-display leading-[1.08] animate-fade-up"
-        style={{ fontSize: "clamp(2.2rem, 6vw, 4.5rem)", animationDelay: "0.1s" }}
-      >
-        {t.hero.title}
-      </h1>
+        <p
+          className="mt-8 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-center font-sans font-semibold animate-fade-up"
+          style={{ fontSize: "clamp(0.95rem, 1.4vw, 1.125rem)", animationDelay: "0.15s" }}
+        >
+          {t.hero.tags.map((tag, i) => (
+            <span key={tag} className="flex items-center gap-3">
+              {i > 0 && <span aria-hidden>•</span>}
+              {tag}
+            </span>
+          ))}
+        </p>
 
-      <p
-        className="mt-6 max-w-xl text-lg text-muted-foreground animate-fade-up"
-        style={{ animationDelay: "0.2s" }}
-      >
-        {t.hero.caption}
-      </p>
-
-      <div className="mt-14 animate-fade-in" style={{ animationDelay: "0.35s" }}>
-        <ImagePlaceholder caption={t.hero.caption} ratio="aspect-[16/8]" />
+        <div className="mt-14 w-full animate-fade-in" style={{ animationDelay: "0.35s" }}>
+          <ImagePlaceholder dark caption={t.hero.caption} ratio="aspect-[16/8]" className="rounded-t-2xl" />
+        </div>
       </div>
     </section>
   );

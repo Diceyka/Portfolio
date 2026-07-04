@@ -1,23 +1,28 @@
 import type { Content } from "../lib/content";
-import SectionLabel from "./SectionLabel";
+import Reveal from "./Reveal";
 
+/** Light card with three large serif-italic stats and vertical dividers. */
 export default function Impact({ t }: { t: Content }) {
   return (
-    <section className="dark-section bg-background text-foreground">
-      <div className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-32">
-        <SectionLabel>{t.impact.heading}</SectionLabel>
-        <div className="grid gap-12 sm:grid-cols-3 sm:gap-8">
-          {t.impact.stats.map((s) => (
-            <div key={s.title}>
+    <section className="mx-auto max-w-page px-5 sm:px-8">
+      <div className="rounded-2xl bg-card p-8 sm:p-12">
+        <h2 className="mb-10 font-display text-2xl">{t.impact.heading}</h2>
+        <div className="grid gap-10 sm:grid-cols-3 sm:gap-0">
+          {t.impact.stats.map((s, i) => (
+            <Reveal
+              key={s.title}
+              delay={i * 120}
+              className={i > 0 ? "sm:border-l sm:border-border sm:pl-10" : ""}
+            >
               <p
-                className="font-display text-accent"
-                style={{ fontSize: "clamp(3rem, 7vw, 5rem)" }}
+                className="font-display italic leading-none"
+                style={{ fontSize: "clamp(2.8rem, 5.5vw, 4rem)" }}
               >
                 {s.value}
               </p>
-              <p className="mt-3 text-xl font-semibold">{s.title}</p>
-              <p className="mt-2 text-sm text-muted-foreground">{s.note}</p>
-            </div>
+              <p className="mt-4 font-display text-2xl leading-tight">{s.title}</p>
+              <p className="mt-3 font-sans text-sm text-muted">{s.note}</p>
+            </Reveal>
           ))}
         </div>
       </div>

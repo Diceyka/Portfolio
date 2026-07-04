@@ -3,23 +3,18 @@
 @tailwind utilities;
 
 :root {
-  /* Editorial paper + ink + coral */
-  --background: 40 33% 95%; /* warm paper */
-  --foreground: 24 14% 10%; /* ink */
-  --muted-foreground: 24 8% 38%;
-  --accent: 12 100% 57%; /* coral */
-  --accent-foreground: 40 33% 96%;
-  --card: 40 28% 91%;
-  --border: 30 12% 82%;
-  --ink: 24 14% 10%;
-}
-
-.dark-section {
-  --background: 24 14% 9%;
-  --foreground: 40 33% 94%;
-  --muted-foreground: 36 12% 62%;
-  --card: 24 10% 13%;
-  --border: 24 8% 24%;
+  /* Reference system: white page, #f8f8f8 cards, black ink, #474747 body */
+  --page: 0 0% 100%;
+  --card: 0 0% 97.3%;
+  --card-media: 150 8% 94%; /* light gray-green media cards */
+  --ink: 0 0% 0%;
+  --body: 0 0% 28%;
+  --label: 0 0% 20%;
+  --muted: 0 0% 45%;
+  --border: 0 0% 89%;
+  --nav-active: 226 74% 40%; /* royal blue active pill */
+  --hero-1: 160 14% 15%; /* deep green */
+  --hero-2: 150 10% 32%;
 }
 
 html {
@@ -27,22 +22,53 @@ html {
 }
 
 body {
-  @apply bg-background text-foreground font-sans antialiased;
-  font-feature-settings: "ss01" on;
+  @apply bg-page text-ink font-sans antialiased;
 }
 
 ::selection {
-  background: hsl(var(--accent));
-  color: hsl(var(--accent-foreground));
+  background: hsl(var(--nav-active));
+  color: white;
 }
 
-/* thin grain so large paper areas don't look flat */
-.grain::before {
+/* Hero: dark green blurred-gradient with grain, like the reference */
+.hero-bg {
+  background:
+    radial-gradient(120% 80% at 20% 10%, hsl(var(--hero-2) / 0.9) 0%, transparent 50%),
+    radial-gradient(100% 90% at 85% 30%, hsl(150 12% 24%) 0%, transparent 55%),
+    linear-gradient(175deg, hsl(var(--hero-1)) 0%, hsl(155 12% 22%) 55%, hsl(150 10% 28%) 100%);
+  position: relative;
+}
+.hero-bg::after {
   content: "";
-  position: fixed;
+  position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 50;
-  opacity: 0.05;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  opacity: 0.35;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Scroll reveal: blur -> sharp, like Framer text reveals on the reference */
+.reveal {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(14px);
+  transition:
+    opacity 0.9s ease,
+    filter 0.9s ease,
+    transform 0.9s ease;
+}
+.reveal.in-view {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
 }

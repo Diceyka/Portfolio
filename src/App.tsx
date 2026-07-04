@@ -10,11 +10,13 @@ export default function App() {
   const [lang, setLang] = useState<Lang>("en");
   const t = content[lang];
   const path = usePath();
+  const slug = path.replace(/^\/+|\/+$/g, "");
+  const currentCase = t.cases[slug];
 
   return (
     <div className="min-h-screen bg-page text-ink">
-      <Navbar lang={lang} onLangChange={setLang} t={t} isHome={path === "/"} />
-      {path === "/coral-travel" ? <CasePage t={t} /> : <Home t={t} />}
+      <Navbar lang={lang} onLangChange={setLang} t={t} isHome={!currentCase} />
+      {currentCase ? <CasePage c={currentCase} /> : <Home t={t} />}
       <Footer t={t} />
     </div>
   );

@@ -1,4 +1,4 @@
-import type { Content } from "../lib/content";
+import type { CaseContent } from "../lib/content";
 import Hero from "../components/Hero";
 import Impact from "../components/Impact";
 import SectionLabel from "../components/SectionLabel";
@@ -45,20 +45,20 @@ function Narrative({
   );
 }
 
-export default function CasePage({ t }: { t: Content }) {
+export default function CasePage({ c }: { c: CaseContent }) {
   return (
     <main>
-      <Hero t={t} />
+      <Hero c={c} />
 
       {/* Product + Details + Problem/Solution/Result — card grid on white */}
       <section className="mx-auto max-w-page space-y-4 px-5 pt-4 sm:px-8">
         <Reveal>
           <div className="rounded-2xl bg-card p-8 sm:p-12">
             <h2 className="font-display text-2xl">
-              {t.product.label} <em className="italic text-muted">{t.product.name}</em>
+              {c.product.label} <em className="italic text-muted">{c.product.name}</em>
             </h2>
             <p className="mt-6 max-w-3xl font-sans text-lg font-semibold leading-relaxed text-ink">
-              {t.product.text}
+              {c.product.text}
             </p>
           </div>
         </Reveal>
@@ -66,9 +66,9 @@ export default function CasePage({ t }: { t: Content }) {
         <div className="grid gap-4 lg:grid-cols-2">
           <Reveal>
             <div className="h-full rounded-2xl bg-card p-8 sm:p-12">
-              <h2 className="mb-8 font-display text-2xl">{t.details.heading}</h2>
+              <h2 className="mb-8 font-display text-2xl">{c.details.heading}</h2>
               <dl>
-                {t.details.rows.map((row, i) => (
+                {c.details.rows.map((row, i) => (
                   <div key={row.label} className={i > 0 ? "border-t border-border py-5" : "pb-5"}>
                     <dt className="font-sans font-semibold text-ink">{row.value}</dt>
                     <dd className="mt-1 font-sans text-body">{row.label}</dd>
@@ -79,7 +79,7 @@ export default function CasePage({ t }: { t: Content }) {
           </Reveal>
 
           <div className="flex flex-col gap-4">
-            {t.psr.map((block, i) => (
+            {c.psr.map((block, i) => (
               <Reveal key={block.label} delay={i * 100} className="flex-1">
                 <div className="h-full rounded-2xl bg-card p-8 sm:p-10">
                   <h3 className="font-display text-2xl">
@@ -95,20 +95,20 @@ export default function CasePage({ t }: { t: Content }) {
 
       <div className="mx-auto max-w-page px-5 pt-4 sm:px-8" />
 
-      <Impact t={t} />
+      <Impact c={c} />
 
       {/* Context */}
-      <Narrative id="context" label={t.context.label} title={t.context.title}>
-        {t.context.paras.map((p, i) => (
+      <Narrative id="context" label={c.context.label} title={c.context.title}>
+        {c.context.paras.map((p, i) => (
           <p key={i}>{p}</p>
         ))}
       </Narrative>
 
       {/* Problem */}
-      <Narrative label={t.problem.label} title={t.problem.title}>
-        <p>{t.problem.intro}</p>
+      <Narrative label={c.problem.label} title={c.problem.title}>
+        <p>{c.problem.intro}</p>
         <ul className="space-y-3">
-          {t.problem.points.map((point, i) => (
+          {c.problem.points.map((point, i) => (
             <li key={i} className="flex gap-3">
               <span aria-hidden className="text-muted">
                 ·
@@ -120,8 +120,8 @@ export default function CasePage({ t }: { t: Content }) {
       </Narrative>
 
       {/* Goals */}
-      <Narrative label={t.goals.label} title={t.goals.title}>
-        {t.goals.items.map((goal) => (
+      <Narrative label={c.goals.label} title={c.goals.title}>
+        {c.goals.items.map((goal) => (
           <p key={goal.name}>
             <strong className="font-semibold text-ink">{goal.name}</strong>: {goal.text}
           </p>
@@ -129,8 +129,8 @@ export default function CasePage({ t }: { t: Content }) {
       </Narrative>
 
       {/* Process + Key Insights */}
-      <Narrative label={t.process.label} title={t.process.title}>
-        {t.process.insights.map((insight) => (
+      <Narrative label={c.process.label} title={c.process.title}>
+        {c.process.insights.map((insight) => (
           <p key={insight.name}>
             <strong className="font-semibold text-ink">{insight.name}</strong> {insight.text}
           </p>
@@ -139,20 +139,20 @@ export default function CasePage({ t }: { t: Content }) {
 
       {/* Solution statement — wide serif line */}
       <section className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
-        <SectionLabel>{t.solution.label}</SectionLabel>
+        <SectionLabel>{c.solution.label}</SectionLabel>
         <Reveal>
           <h2
             className="max-w-4xl font-display font-light leading-snug text-muted"
             style={{ fontSize: "clamp(1.9rem, 3.6vw, 2.7rem)" }}
           >
-            <Em text={t.solution.title} />
+            <Em text={c.solution.title} />
           </h2>
         </Reveal>
       </section>
 
       {/* Design sections */}
       <div id="design">
-        {t.design.map((d) => (
+        {c.design.map((d) => (
           <section key={d.label} className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-20">
             <SectionLabel>{d.label}</SectionLabel>
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
@@ -181,9 +181,9 @@ export default function CasePage({ t }: { t: Content }) {
 
       {/* Reflections */}
       <section className="mx-auto max-w-page px-5 py-20 sm:px-8 sm:py-28">
-        <SectionLabel>{t.reflections.label}</SectionLabel>
+        <SectionLabel>{c.reflections.label}</SectionLabel>
         <div className="grid gap-10 md:grid-cols-3">
-          {t.reflections.items.map((r, i) => (
+          {c.reflections.items.map((r, i) => (
             <Reveal key={r.name} delay={i * 120}>
               <p className="font-sans text-lg leading-relaxed text-body">
                 <strong className="font-semibold text-ink">{r.name}</strong>: {r.text}
@@ -195,13 +195,13 @@ export default function CasePage({ t }: { t: Content }) {
 
       {/* What next */}
       <section className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-20">
-        <SectionLabel>{t.next.label}</SectionLabel>
+        <SectionLabel>{c.next.label}</SectionLabel>
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
           <Reveal>
-            <Headline text={`*${t.next.title}*`} />
+            <Headline text={`*${c.next.title}*`} />
           </Reveal>
           <Reveal delay={150}>
-            <p className="font-sans text-lg leading-relaxed text-body">{t.next.text}</p>
+            <p className="font-sans text-lg leading-relaxed text-body">{c.next.text}</p>
           </Reveal>
         </div>
       </section>
@@ -213,9 +213,9 @@ export default function CasePage({ t }: { t: Content }) {
             className="font-display font-light italic text-muted"
             style={{ fontSize: "clamp(1.4rem, 2.8vw, 2rem)" }}
           >
-            {t.finLine}
+            {c.finLine}
           </p>
-          <p className="mt-6 font-display text-2xl italic">{t.fin}</p>
+          <p className="mt-6 font-display text-2xl italic">{c.fin}</p>
         </Reveal>
       </section>
     </main>

@@ -1,14 +1,14 @@
-import type { Content } from "../lib/content";
+import type { CaseContent } from "../lib/content";
 import Reveal from "./Reveal";
 
 /** Light card with three large serif-italic stats and vertical dividers. */
-export default function Impact({ t }: { t: Content }) {
+export default function Impact({ c }: { c: CaseContent }) {
   return (
     <section className="mx-auto max-w-page px-5 sm:px-8">
       <div className="rounded-2xl bg-card p-8 sm:p-12">
-        <h2 className="mb-10 font-display text-2xl">{t.impact.heading}</h2>
+        <h2 className="mb-10 font-display text-2xl">{c.impact.heading}</h2>
         <div className="grid gap-10 sm:grid-cols-3 sm:gap-0">
-          {t.impact.stats.map((s, i) => (
+          {c.impact.stats.map((s, i) => (
             <Reveal
               key={s.title}
               delay={i * 120}

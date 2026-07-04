@@ -10,7 +10,7 @@
   --ink: 0 0% 0%;
   --body: 0 0% 28%;
   --label: 0 0% 20%;
-  --muted: 0 0% 45%;
+  --muted: 0 0% 40%; /* darkened from 45% — 45% failed AA (4.49:1) against --card-media */
   --border: 0 0% 89%;
   --nav-active: 226 74% 40%; /* royal blue active pill */
   --hero-1: 160 14% 15%; /* deep green — hero stays dark in both themes */
@@ -44,6 +44,10 @@ html {
 
 body {
   @apply bg-page text-ink font-sans antialiased transition-colors duration-300;
+}
+
+button:not(:disabled) {
+  cursor: pointer;
 }
 
 ::selection {
@@ -116,5 +120,17 @@ body {
     filter: none;
     transform: none;
     transition: none;
+  }
+
+  /* Infinite ticker and load-in animations must stop too — not just scroll reveals */
+  .marquee-track {
+    animation: none;
+  }
+
+  .animate-fade-up,
+  .animate-fade-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
 }

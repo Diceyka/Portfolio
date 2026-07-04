@@ -29,19 +29,25 @@ function ProjectBlock({ p, index, isLast }: { p: HomeProject; index: number; isL
   const ref = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
-  // Progress across the exact window this section spends pinned under the
-  // fixed nav — from the moment it reaches the sticky point ("start start")
-  // to the moment the next card's edge arrives and covers it ("end start").
+  // Progress across the window this section spends pinned in its stacked
+  // spot — from the moment it settles ("start start") to roughly when the
+  // next card has fully slid in over it ("end start").
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const rawScale = useTransform(scrollYProgress, [0, 1], [1, 0.92]);
-  const rawOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.55]);
+  // Subtler than a full cover — most of the card stays peeking out above
+  // the next one, so it only needs to recede slightly, not vanish.
+  const rawScale = useTransform(scrollYProgress, [0, 1], [1, 0.97]);
+  const rawOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.88]);
   // The last card has nothing stacking over it, and reduced-motion users get
   // a static stack instead of the recede effect.
   const scale = isLast || prefersReducedMotion ? 1 : rawScale;
   const opacity = isLast || prefersReducedMotion ? 1 : rawOpacity;
+
+  // Each card settles a bit lower than the one before it, so scrolling stacks
+  // them into a fanned deck — earlier headlines stay peeking out on top.
+  const stickyTop = 84 + index * 56;
 
   const card = (
     <div
@@ -86,8 +92,8 @@ function ProjectBlock({ p, index, isLast }: { p: HomeProject; index: number; isL
   return (
     <motion.section
       ref={ref}
-      style={{ scale, opacity, zIndex: 10 + index }}
-      className="sticky top-20 flex min-h-screen origin-top flex-col justify-center bg-page px-5 py-16 sm:top-24 sm:px-8"
+      style={{ scale, opacity, zIndex: 10 + index, top: stickyTop }}
+      className="sticky origin-top rounded-t-[28px] bg-page px-5 pb-16 pt-10 shadow-[0_-16px_32px_-24px_rgba(0,0,0,0.18)] sm:px-8 sm:pb-24 sm:pt-12"
     >
       <div className="mx-auto w-full max-w-page">
         <Reveal delay={index * 60}>
@@ -147,7 +153,8 @@ export default function Home({ t }: { t: Content }) {
         </p>
       </section>
 
-      {/* Projects: each card sticks under the nav, then the next one covers it */}
+      {/* Projects: cascading sticky stack — each card settles lower than the
+          last, so earlier headlines keep peeking out above it while scrolling */}
       {t.projects.map((p, i) => (
         <ProjectBlock key={p.caption} p={p} index={i} isLast={i === t.projects.length - 1} />
       ))}

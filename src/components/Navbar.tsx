@@ -85,7 +85,7 @@ export default function Navbar({ lang, onLangChange, t, isHome }: Props) {
                 key={l}
                 onClick={() => onLangChange(l)}
                 className={cn(
-                  "flex h-full items-center rounded-full px-3 font-display text-sm transition-colors",
+                  "flex h-full min-w-[64px] items-center justify-center rounded-full px-6 font-display text-sm transition-colors",
                   lang === l ? "bg-invert text-invert-foreground" : "text-muted hover:text-ink"
                 )}
               >

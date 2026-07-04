@@ -1,8 +1,23 @@
 export type Lang = "en" | "ru";
 
 /** Strings may contain *emphasis* — rendered as black italic serif via <Em/>. */
+export interface HomeProject {
+  headline: string;
+  tags: string[];
+  cta: string;
+  href?: string;
+  color: "green" | "peach" | "periwinkle" | "sand";
+  caption: string;
+}
+
 export interface Content {
   nav: { work: string; story: string; resume: string };
+  home: {
+    ticker: string[];
+    heroTitle: string;
+    heroScript: string;
+  };
+  projects: HomeProject[];
   hero: { tags: string[]; title: string; caption: string };
   product: { label: string; name: string; text: string };
   details: { heading: string; rows: { value: string; label: string }[] };
@@ -24,6 +39,42 @@ export interface Content {
 export const content: Record<Lang, Content> = {
   en: {
     nav: { work: "work", story: "story", resume: "résumé" },
+    home: {
+      ticker: ["who i am", "what i care about", "what i believe in", "what i ship"],
+      heroTitle: "Designer who turns complex products into interfaces that move business numbers.",
+      heroScript: "that's me",
+    },
+    projects: [
+      {
+        headline: "I led the redesign of a travel platform that doubled conversion to booking for millions of travelers.",
+        tags: ["End-to-end Redesign", "Design Lead", "Web + App", "Shipped"],
+        cta: "view case study",
+        href: "/coral-travel",
+        color: "green",
+        caption: "Coral Travel — website & mobile app",
+      },
+      {
+        headline: "I design a data-heavy enterprise CRM, where a 128-token design system runs light & dark themes without duplication.",
+        tags: ["Enterprise / SaaS", "Design Systems", "CRM", "Ongoing"],
+        cta: "coming soon",
+        color: "periwinkle",
+        caption: "VS Robotics — RockUP CRM",
+      },
+      {
+        headline: "I created a premium digital concept that lifted visits by 76% for the high-end travel segment.",
+        tags: ["Premium Concept", "Visual System", "+76% visits", "Shipped"],
+        cta: "coming soon",
+        color: "sand",
+        caption: "Coral Travel — Villas & Suites",
+      },
+      {
+        headline: "I built a reusable landing system for three global brands, lifting conversion by 6–12%.",
+        tags: ["Oral-B · Gillette · Braun", "Design System", "E-commerce", "Shipped"],
+        cta: "coming soon",
+        color: "peach",
+        caption: "P&G — brand platforms",
+      },
+    ],
     hero: {
       tags: ["End-to-end Redesign", "Design Lead", "Team of 5", "Shipped"],
       title: "Redesigning how millions plan and book their vacations",
@@ -160,6 +211,42 @@ export const content: Record<Lang, Content> = {
 
   ru: {
     nav: { work: "работы", story: "обо мне", resume: "резюме" },
+    home: {
+      ticker: ["кто я", "что мне важно", "во что я верю", "что я делаю"],
+      heroTitle: "Дизайнер, который превращает сложные продукты в интерфейсы, двигающие бизнес-показатели.",
+      heroScript: "это я",
+    },
+    projects: [
+      {
+        headline: "Я вёл редизайн travel-платформы, который удвоил конверсию в бронирование для миллионов путешественников.",
+        tags: ["Полный редизайн", "Design Lead", "Веб + приложение", "Запущено"],
+        cta: "смотреть кейс",
+        href: "/coral-travel",
+        color: "green",
+        caption: "Coral Travel — сайт и приложение",
+      },
+      {
+        headline: "Я проектирую data-heavy enterprise CRM, где дизайн-система на 128 токенов ведёт светлую и тёмную темы без дублирования.",
+        tags: ["Enterprise / SaaS", "Дизайн-системы", "CRM", "В работе"],
+        cta: "скоро",
+        color: "periwinkle",
+        caption: "VS Robotics — RockUP CRM",
+      },
+      {
+        headline: "Я создал премиальную digital-концепцию, которая подняла визиты на 76% в высоком сегменте travel.",
+        tags: ["Премиум-концепция", "Визуальная система", "+76% визитов", "Запущено"],
+        cta: "скоро",
+        color: "sand",
+        caption: "Coral Travel — Villas & Suites",
+      },
+      {
+        headline: "Я построил переиспользуемую систему лендингов для трёх глобальных брендов: +6–12% к конверсии.",
+        tags: ["Oral-B · Gillette · Braun", "Дизайн-система", "E-commerce", "Запущено"],
+        cta: "скоро",
+        color: "peach",
+        caption: "P&G — платформы брендов",
+      },
+    ],
     hero: {
       tags: ["Полный редизайн", "Design Lead", "Команда из 5", "Запущено"],
       title: "Редизайн того, как миллионы планируют и бронируют отпуск",

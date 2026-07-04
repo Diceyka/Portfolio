@@ -4,7 +4,7 @@ import Reveal from "./Reveal";
 /** Centered footer: pill contact buttons, oversized wordmark, small copyright. */
 export default function Footer({ t }: { t: Content }) {
   return (
-    <footer className="mx-auto max-w-page px-5 pb-10 pt-24 text-center sm:px-8">
+    <footer id="contact" className="mx-auto max-w-page px-5 pb-10 pt-24 text-center sm:px-8">
       <Reveal>
         <div className="flex flex-wrap items-center justify-center gap-3">
           {t.footer.links.map((link) => (

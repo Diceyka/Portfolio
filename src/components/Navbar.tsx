@@ -1,34 +1,36 @@
 import { cn } from "../lib/utils";
+import { Link } from "../lib/router";
 import type { Lang, Content } from "../lib/content";
 
 interface Props {
   lang: Lang;
   onLangChange: (l: Lang) => void;
   t: Content;
+  isHome?: boolean;
 }
 
-/** Floating pill nav: logo pill left, pill group right — as in the reference. */
-export default function Navbar({ lang, onLangChange, t }: Props) {
+/** Floating pill nav: logo pill left, pill group right. */
+export default function Navbar({ lang, onLangChange, t, isHome }: Props) {
   return (
     <header className="fixed top-0 inset-x-0 z-40">
       <nav className="mx-auto flex max-w-page items-center justify-between px-5 py-4 sm:px-8">
-        <a
-          href="#top"
+        <Link
+          to="/"
           className="rounded-full border border-border bg-white px-5 py-2 font-display text-base shadow-sm transition-transform hover:scale-105"
         >
           dmitry
-        </a>
+        </Link>
 
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1 rounded-full border border-border bg-white p-1 shadow-sm">
-            <a
-              href="#design"
+            <Link
+              to="/"
               className="rounded-full bg-nav-active px-4 py-1.5 font-display text-base text-white"
             >
               {t.nav.work}
-            </a>
+            </Link>
             <a
-              href="#context"
+              href="#contact"
               className="hidden rounded-full px-4 py-1.5 font-display text-base text-body transition-colors hover:bg-card sm:block"
             >
               {t.nav.story}

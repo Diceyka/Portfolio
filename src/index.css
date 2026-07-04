@@ -64,6 +64,31 @@ body {
   transform: none;
 }
 
+/* Homepage marquee ticker */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-block;
+  animation: marquee 28s linear infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Handwritten overlay on the home hero */
+.script-overlay {
+  font-family: "Caveat", cursive;
+  color: hsl(var(--nav-active));
+  transform: rotate(-7deg);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal {
     opacity: 1;

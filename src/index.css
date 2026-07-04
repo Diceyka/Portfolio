@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Editorial paper + ink + coral */
+  --background: 40 33% 95%; /* warm paper */
+  --foreground: 24 14% 10%; /* ink */
+  --muted-foreground: 24 8% 38%;
+  --accent: 12 100% 57%; /* coral */
+  --accent-foreground: 40 33% 96%;
+  --card: 40 28% 91%;
+  --border: 30 12% 82%;
+  --ink: 24 14% 10%;
+}
+
+.dark-section {
+  --background: 24 14% 9%;
+  --foreground: 40 33% 94%;
+  --muted-foreground: 36 12% 62%;
+  --card: 24 10% 13%;
+  --border: 24 8% 24%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+  font-feature-settings: "ss01" on;
+}
+
+::selection {
+  background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+/* thin grain so large paper areas don't look flat */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+}

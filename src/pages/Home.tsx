@@ -1,5 +1,3 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import type { Content, HomeProject } from "../lib/content";
 import { Link } from "../lib/router";
 import Reveal from "../components/Reveal";
@@ -25,30 +23,7 @@ function Sheet({ label, className }: { label: string; className?: string }) {
   );
 }
 
-function ProjectBlock({ p, index, isLast }: { p: HomeProject; index: number; isLast: boolean }) {
-  const ref = useRef<HTMLElement>(null);
-  const prefersReducedMotion = useReducedMotion();
-
-  // Progress across the window this section spends pinned in its stacked
-  // spot — from the moment it settles ("start start") to roughly when the
-  // next card has fully slid in over it ("end start").
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-  // Subtler than a full cover — most of the card stays peeking out above
-  // the next one, so it only needs to recede slightly, not vanish.
-  const rawScale = useTransform(scrollYProgress, [0, 1], [1, 0.97]);
-  const rawOpacity = useTransform(scrollYProgress, [0, 1], [1, 0.88]);
-  // The last card has nothing stacking over it, and reduced-motion users get
-  // a static stack instead of the recede effect.
-  const scale = isLast || prefersReducedMotion ? 1 : rawScale;
-  const opacity = isLast || prefersReducedMotion ? 1 : rawOpacity;
-
-  // Each card settles a bit lower than the one before it, so scrolling stacks
-  // them into a fanned deck — earlier headlines stay peeking out on top.
-  const stickyTop = 84 + index * 56;
-
+function ProjectBlock({ p, index }: { p: HomeProject; index: number }) {
   const card = (
     <div
       className={`group relative mt-10 overflow-hidden rounded-3xl ${cardColors[p.color]} aspect-[4/3] sm:aspect-[2/1]`}
@@ -90,31 +65,25 @@ function ProjectBlock({ p, index, isLast }: { p: HomeProject; index: number; isL
   );
 
   return (
-    <motion.section
-      ref={ref}
-      style={{ scale, opacity, zIndex: 10 + index, top: stickyTop }}
-      className="sticky origin-top rounded-t-[28px] bg-page px-5 pb-16 pt-10 shadow-[0_-16px_32px_-24px_rgba(0,0,0,0.18)] sm:px-8 sm:pb-24 sm:pt-12"
-    >
-      <div className="mx-auto w-full max-w-page">
-        <Reveal delay={index * 60}>
-          <h2
-            className="max-w-4xl font-display italic leading-snug"
-            style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.5rem)" }}
-          >
-            {p.headline}
-          </h2>
-          <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-sans font-semibold text-label">
-            {p.tags.map((tag, i) => (
-              <span key={tag} className="flex items-center gap-2">
-                {i > 0 && <span aria-hidden>·</span>}
-                {tag}
-              </span>
-            ))}
-          </p>
-          {p.href ? <Link to={p.href}>{card}</Link> : card}
-        </Reveal>
-      </div>
-    </motion.section>
+    <section className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-24">
+      <Reveal delay={index * 60}>
+        <h2
+          className="max-w-4xl font-display italic leading-snug"
+          style={{ fontSize: "clamp(1.6rem, 3.4vw, 2.5rem)" }}
+        >
+          {p.headline}
+        </h2>
+        <p className="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 font-sans font-semibold text-label">
+          {p.tags.map((tag, i) => (
+            <span key={tag} className="flex items-center gap-2">
+              {i > 0 && <span aria-hidden>·</span>}
+              {tag}
+            </span>
+          ))}
+        </p>
+        {p.href ? <Link to={p.href}>{card}</Link> : card}
+      </Reveal>
+    </section>
   );
 }
 
@@ -153,10 +122,9 @@ export default function Home({ t }: { t: Content }) {
         </p>
       </section>
 
-      {/* Projects: cascading sticky stack — each card settles lower than the
-          last, so earlier headlines keep peeking out above it while scrolling */}
+      {/* Projects */}
       {t.projects.map((p, i) => (
-        <ProjectBlock key={p.caption} p={p} index={i} isLast={i === t.projects.length - 1} />
+        <ProjectBlock key={p.caption} p={p} index={i} />
       ))}
     </main>
   );

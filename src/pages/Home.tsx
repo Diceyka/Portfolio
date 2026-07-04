@@ -103,7 +103,6 @@ function ProjectBlock({ p, index }: { p: HomeProject; index: number }) {
 }
 
 export default function Home({ t }: { t: Content }) {
-  const tickerItems = [...t.home.ticker, ...t.home.ticker, ...t.home.ticker, ...t.home.ticker];
   const reducedMotion = usePrefersReducedMotion();
 
   return (
@@ -124,20 +123,6 @@ export default function Home({ t }: { t: Content }) {
           COLOR_UPDATE_SPEED={10}
         />
       )}
-
-      {/* Ticker behind the nav */}
-      <div className="marquee pt-6 sm:pt-7" aria-hidden>
-        <div className="marquee-track">
-          {[...tickerItems, ...tickerItems].map((item, i) => (
-            <span
-              key={i}
-              className="mx-8 font-sans text-sm font-semibold uppercase tracking-[0.12em] text-muted"
-            >
-              {item}
-            </span>
-          ))}
-        </div>
-      </div>
 
       {/* Hero */}
       <section className="relative mx-auto max-w-page px-5 pb-10 pt-24 text-center sm:px-8 sm:pt-32">

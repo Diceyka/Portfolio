@@ -89,24 +89,6 @@ button:not(:disabled) {
   transform: none;
 }
 
-/* Homepage marquee ticker */
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-}
-.marquee-track {
-  display: inline-block;
-  animation: marquee 28s linear infinite;
-}
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 /* Handwritten overlay on the home hero */
 .script-overlay {
   font-family: "Caveat", cursive;
@@ -122,11 +104,7 @@ button:not(:disabled) {
     transition: none;
   }
 
-  /* Infinite ticker and load-in animations must stop too — not just scroll reveals */
-  .marquee-track {
-    animation: none;
-  }
-
+  /* Load-in animations must stop too — not just scroll reveals */
   .animate-fade-up,
   .animate-fade-in {
     animation: none;

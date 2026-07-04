@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
 import type { Content, HomeProject } from "../lib/content";
 import { Link } from "../lib/router";
 import Reveal from "../components/Reveal";
 import ImagePlaceholder from "../components/ImagePlaceholder";
+import SplashCursor from "../components/SplashCursor";
+
+/** Skip the WebGL cursor effect for anyone who's asked for less motion. */
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduced(mq.matches);
+    const onChange = () => setReduced(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  return reduced;
+}
 
 const cardColors: Record<HomeProject["color"], string> = {
   green: "bg-[#dfe9b9]",
@@ -89,9 +104,27 @@ function ProjectBlock({ p, index }: { p: HomeProject; index: number }) {
 
 export default function Home({ t }: { t: Content }) {
   const tickerItems = [...t.home.ticker, ...t.home.ticker, ...t.home.ticker, ...t.home.ticker];
+  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <main>
+      {/* Fluid cursor trail — mounted on the first screen, but note the
+          component itself is fixed/full-viewport (see SplashCursor.tsx),
+          so it renders over the whole page, not just the hero */}
+      {!reducedMotion && (
+        <SplashCursor
+          SIM_RESOLUTION={128}
+          DYE_RESOLUTION={1440}
+          DENSITY_DISSIPATION={3.5}
+          VELOCITY_DISSIPATION={2}
+          PRESSURE={0.1}
+          CURL={3}
+          SPLAT_RADIUS={0.2}
+          SPLAT_FORCE={6000}
+          COLOR_UPDATE_SPEED={10}
+        />
+      )}
+
       {/* Ticker behind the nav */}
       <div className="marquee pt-6 sm:pt-7" aria-hidden>
         <div className="marquee-track">

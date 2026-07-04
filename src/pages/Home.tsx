@@ -10,17 +10,54 @@ const cardColors: Record<HomeProject["color"], string> = {
   sand: "bg-[#ece5d8]",
 };
 
+/* Fanned "paper sheet" behind the mockup — part of the folder illusion */
+function Sheet({ label, className }: { label: string; className?: string }) {
+  return (
+    <div
+      className={`absolute h-44 w-56 rounded-xl bg-ink/10 blur-[1px] transition-transform duration-500 sm:h-56 sm:w-72 ${className ?? ""}`}
+    >
+      <span className="block pt-3 text-center font-display text-sm italic text-white/80">
+        {label}
+      </span>
+    </div>
+  );
+}
+
 function ProjectBlock({ p, index }: { p: HomeProject; index: number }) {
   const card = (
     <div
-      className={`group relative mt-10 overflow-hidden rounded-3xl ${cardColors[p.color]} p-6 transition-transform duration-500 hover:scale-[1.01] sm:p-14`}
+      className={`group relative mt-10 overflow-hidden rounded-3xl ${cardColors[p.color]} aspect-[4/3] sm:aspect-[2/1]`}
     >
-      <ImagePlaceholder
-        caption={p.caption}
-        ratio="aspect-[16/8]"
-        className="bg-white/50 transition-transform duration-500 group-hover:scale-[1.02]"
+      {/* Back layer: fanned sheets peeking out of the folder */}
+      <Sheet
+        label={p.tags[0]}
+        className="left-[8%] top-[14%] -rotate-6 group-hover:-translate-y-2 group-hover:-rotate-[7deg]"
       />
-      <span className="absolute bottom-6 right-6 rounded-full bg-nav-active px-4 py-2 font-sans text-sm text-white sm:bottom-10 sm:right-10">
+      <Sheet
+        label={p.tags[1] ?? p.tags[0]}
+        className="right-[8%] top-[14%] rotate-6 group-hover:-translate-y-2 group-hover:rotate-[7deg]"
+      />
+      <Sheet
+        label={p.caption}
+        className="left-1/2 top-[9%] w-72 -translate-x-1/2 -rotate-1 sm:w-96"
+      />
+
+      {/* Mockup: tucked into the folder, pops out sharp on hover */}
+      <div className="absolute inset-x-[8%] top-[22%] z-10 blur-[2px] transition-all duration-500 ease-out group-hover:top-[10%] group-hover:scale-[1.02] group-hover:blur-0 sm:inset-x-[16%] sm:top-[18%]">
+        <ImagePlaceholder
+          caption={p.caption}
+          ratio="aspect-[16/9]"
+          className="rounded-xl bg-white shadow-2xl"
+        />
+      </div>
+
+      {/* Front flap of the folder — fades away on hover */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-1 bottom-0 top-[55%] z-20 rounded-t-[28px] bg-gradient-to-b from-white/25 via-white/60 to-white/85 backdrop-blur-[1px] transition-opacity duration-500 group-hover:opacity-0"
+      />
+
+      <span className="absolute bottom-5 right-5 z-30 rounded-full bg-nav-active px-4 py-2 font-sans text-sm text-white transition-transform duration-300 group-hover:scale-105 sm:bottom-8 sm:right-8">
         {p.cta}
       </span>
     </div>

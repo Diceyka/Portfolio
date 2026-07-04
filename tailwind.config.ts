@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
+  darkMode: "class",
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
@@ -14,6 +15,8 @@ export default {
         muted: "hsl(var(--muted))",
         border: "hsl(var(--border))",
         "nav-active": "hsl(var(--nav-active))",
+        invert: "hsl(var(--invert))",
+        "invert-foreground": "hsl(var(--invert-foreground))",
       },
       fontFamily: {
         display: ["'Averia Serif Libre'", "Vollkorn", "serif"],

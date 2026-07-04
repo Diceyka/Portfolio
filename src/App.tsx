@@ -16,7 +16,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-page text-ink">
       <Navbar lang={lang} onLangChange={setLang} t={t} isHome={!currentCase} />
-      {currentCase ? <CasePage c={currentCase} /> : <Home t={t} />}
+      {currentCase ? <CasePage c={currentCase} slug={slug} /> : <Home t={t} />}
       <Footer t={t} />
     </div>
   );

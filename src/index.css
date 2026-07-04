@@ -13,8 +13,29 @@
   --muted: 0 0% 45%;
   --border: 0 0% 89%;
   --nav-active: 226 74% 40%; /* royal blue active pill */
-  --hero-1: 160 14% 15%; /* deep green */
+  --hero-1: 160 14% 15%; /* deep green — hero stays dark in both themes */
   --hero-2: 150 10% 32%;
+  --invert: 0 0% 0%; /* solid chip that always contrasts page bg, e.g. active lang pill */
+  --invert-foreground: 0 0% 100%;
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Same relationships, inverted toward a near-black page — never pure #000 */
+  --page: 0 0% 7%;
+  --card: 0 0% 12%;
+  --card-media: 150 6% 16%;
+  --ink: 0 0% 96%;
+  --body: 0 0% 72%;
+  --label: 0 0% 82%;
+  --muted: 0 0% 58%;
+  --border: 0 0% 22%;
+  --nav-active: 226 70% 56%; /* brighter than light mode, but kept dark enough for white text on top */
+  --invert: 0 0% 96%;
+  --invert-foreground: 0 0% 6%;
+
+  color-scheme: dark;
 }
 
 html {
@@ -22,7 +43,7 @@ html {
 }
 
 body {
-  @apply bg-page text-ink font-sans antialiased;
+  @apply bg-page text-ink font-sans antialiased transition-colors duration-300;
 }
 
 ::selection {

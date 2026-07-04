@@ -45,10 +45,10 @@ function Narrative({
   );
 }
 
-export default function CasePage({ c }: { c: CaseContent }) {
+export default function CasePage({ c, slug }: { c: CaseContent; slug: string }) {
   return (
     <main>
-      <Hero c={c} />
+      <Hero c={c} slug={slug} />
 
       {/* Product + Details + Problem/Solution/Result — card grid on white */}
       <section className="mx-auto max-w-page space-y-4 px-5 pt-4 sm:px-8">
@@ -152,7 +152,7 @@ export default function CasePage({ c }: { c: CaseContent }) {
 
       {/* Design sections */}
       <div id="design">
-        {c.design.map((d) => (
+        {c.design.map((d, i) => (
           <section key={d.label} className="mx-auto max-w-page px-5 py-16 sm:px-8 sm:py-20">
             <SectionLabel>{d.label}</SectionLabel>
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
@@ -172,7 +172,11 @@ export default function CasePage({ c }: { c: CaseContent }) {
             </div>
             <Reveal delay={200}>
               <div className="mt-12 rounded-2xl bg-card-media p-4 sm:p-8">
-                <ImagePlaceholder caption={d.imageCaption} ratio="aspect-[16/9]" />
+                <ImagePlaceholder
+                  caption={d.imageCaption}
+                  ratio="aspect-[16/9]"
+                  src={`/images/${slug}-${i + 1}.jpg`}
+                />
               </div>
             </Reveal>
           </section>

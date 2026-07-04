@@ -2,7 +2,7 @@ import type { CaseContent } from "../lib/content";
 import ImagePlaceholder from "./ImagePlaceholder";
 
 /** Full-viewport dark green grainy hero with centered italic serif headline. */
-export default function Hero({ c }: { c: CaseContent }) {
+export default function Hero({ c, slug }: { c: CaseContent; slug: string }) {
   return (
     <section id="top" className="hero-bg text-white">
       <div className="relative z-10 mx-auto flex min-h-[92vh] max-w-page flex-col items-center justify-center px-5 pt-28 sm:px-8">
@@ -26,7 +26,13 @@ export default function Hero({ c }: { c: CaseContent }) {
         </p>
 
         <div className="mt-14 w-full animate-fade-in" style={{ animationDelay: "0.35s" }}>
-          <ImagePlaceholder dark caption={c.hero.caption} ratio="aspect-[16/8]" className="rounded-t-2xl" />
+          <ImagePlaceholder
+            dark
+            caption={c.hero.caption}
+            ratio="aspect-[16/8]"
+            className="rounded-t-2xl"
+            src={`/images/${slug}-hero.jpg`}
+          />
         </div>
       </div>
     </section>

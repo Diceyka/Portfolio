@@ -48,6 +48,7 @@ function ProjectBlock({ p, index }: { p: HomeProject; index: number }) {
           caption={p.caption}
           ratio="aspect-[16/9]"
           className="rounded-xl bg-white shadow-2xl"
+          src={p.href ? `/images/${p.href.replace(/^\//, "")}-hero.jpg` : undefined}
         />
       </div>
 
